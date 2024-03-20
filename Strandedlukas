@@ -1,0 +1,53 @@
+-- Configs///
+local SoundService = game:GetService("SoundService")
+local Workspace = game:GetService("Workspace")
+
+local soundId = "rbxassetid://8361838923"
+
+
+local function playSound()
+    local sound = Instance.new("Sound")
+    sound.SoundId = soundId
+    sound.Parent = Workspace
+    sound:Play()
+    
+    sound.Ended:Connect(function()
+        sound:Destroy()
+    end)
+end
+
+
+local function spawnRefereeAtPlayer()
+    local player = game.Players.LocalPlayer
+  
+    local character = player.Character
+    if not character then
+        return
+    end
+  
+    local position = character.PrimaryPart.Position
+  
+    local referee = Instance.new("Model")
+    referee.Name = "Referee"
+    
+    local head = Instance.new("Part")
+    head.Size = Vector3.new(2, 1, 1)
+    head.Position = position  -- Use the player's position as the bot's position
+    head.Parent = referee
+    
+    local nameTag = Instance.new("BillboardGui")
+    nameTag.Name = "NameTag"
+    nameTag.Size = UDim2.new(0, 100, 0, 50)
+    nameTag.StudsOffset = Vector3.new(0, 3, 0)
+    nameTag.Parent = head
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = "UwU" --you can only change this if you desire, dont touch anything else
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Parent = nameTag
+    
+    referee.Parent = Workspace
+end
+
+spawnRefereeAtPlayer()
+playSound()
